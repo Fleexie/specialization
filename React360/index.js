@@ -6,6 +6,7 @@ import {
   View,
 } from 'react-360';
 import Model from './src/components/model'
+import Panel from './src/components/panel'
 
 export default class React360 extends React.Component {
   render() {
@@ -41,4 +42,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('React360', () => React360);
+// AppRegistry.registerComponent('React360', () => React360);

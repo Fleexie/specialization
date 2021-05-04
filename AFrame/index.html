@@ -3,16 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>A Frame</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.2.0/aframe.min.js" integrity="sha512-/gO16YMp20RIqCZXZyvMlzALQqEoiDU0akshw25wFiXCRGl+0p/HPWkOd8HWFn6bnatGhxakGLfYhWaPPVQIyA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.2.0/aframe.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <a-scene>
-    <a-entity geometry="primitive: box" material="color: red"></a-entity>
-    <a-entity geometry="primitive: cylinder" material="color: green"></a-entity>
-    <a-entity geometry="primitive: sphere" material="color: blue"></a-entity>
+    <a-gltf-model src="./models/Car.gltf"
+                  rotation="0 45 0"
+                  scale="1.4 1.4 1.4"
+                  position="0 -1 -8"
+        animation="property: rotation; loop: true; from: 0 0 0; to: 0 360 0; dur: 10000; easing: linear; pauseEvents: mouseenter; resumeEvents: mouseleave;"
+    >
+        <div class="slide">
+            <label for="Size">Adjust model size</label>
+            <input type="range" min=".1" value="1.5" max="2" step=".01" id="Size">
+        </div>
+    </a-gltf-model>
+    <a-entity light="type: point; color: #fff; intensity: 3;" position="-1 2 -4"></a-entity>
+    <a-entity light="type: point; color: #fff; intensity: 2.5" position="3 2 -4"></a-entity>
+    <a-entity light="type: point; color: #fff; intensity: 1.1" position="0 2 -8"></a-entity>
+    <a-entity light="type: ambient; intensity: 1; color: #CCC"></a-entity>
+    <a-assets>
+        <img id="skyTexture"
+             src="models/autoshop_01.jpg" alt="Image of Autoshop">
+    </a-assets>
+    <a-sky src="#skyTexture"></a-sky>
+    <div class="buttons">
+        <button type="button" id="Koenigsegg">
+            <span>Koenigsegg</span>
+        </button>
+        <button type="button" id="Dodge-R1">
+            <span>Dodge R1</span>
+        </button>
+    </div>
+
+
 
 </a-scene>
 
+
+<script type="text/javascript">
+    const model = document.getElementsByTagName("a-gltf-model")[0];
+    const btn = document.getElementsByTagName("button");
+    for (let i = 0; i < btn.length; i++){
+        btn[i].addEventListener('click', function (e) {
+            model.setAttribute('src', './models/'+ e.target.id +'.glb');
+            modelSize(e);
+        })
+    }
+    const dodgeS = .4;
+    const koenigS = .25;
+    let size = 1.4;
+    function modelSize(e) {
+        switch (e.target.id){
+            case 'Koenigsegg':
+                model.setAttribute('scale', '.25 .25 .25')
+                size = koenigS;
+                slide.value = koenigS * slide.value;
+                break;
+            case 'Dodge-R1':
+                model.setAttribute('scale', '.4 .4 .4')
+                size = dodgeS;
+                slide.value = dodgeS * slide.value;
+                break;
+        }
+    }
+
+    const slide = document.querySelector('#Size');
+    slide.oninput = () => {
+        const value = slide.value;
+        model.setAttribute('scale', `${size * value} ${size * value} ${size * value}`);
+        console.log(slide.value)
+    }
+</script>
 </body>
 </html>
+<!--    <a-obj-model src="#Car-obj" mtl="#Car-mtl" position="0 0 -5"></a-obj-model>-->
+<!--    <a-assets>-->
+<!--        <a-asset-item id="Car-obj" src="./models/Car.obj"></a-asset-item>-->
+<!--        <a-asset-item id="Car-mtl" src="./models/Car.mtl"></a-asset-item>-->
+<!--    </a-assets>-->
+<!--    <a-entity obj-model="obj: #Ford-obj; mtl: #Ford-mtl;"></a-entity>-->
+<!--    <a-entity obj-model="obj: url(./models/Car.obj); mtl: url(models/Car.mtl)"></a-entity>-->
+<!--    <a-entity geometry="primitive: cylinder" material="color: green" scale="3 3 3" position="0 -1.45 -5.5">-->
+<!--    </a-entity>-->

@@ -10,7 +10,7 @@ function init(bundle, parent, options = {}) {
     ...options,
   });
   const TestLocation = new Location([1,1,1]);
-  const location = new Location([0, 2, -10]);
+  const location = new Location([0, -2, -10]);
   r360.renderToLocation(
       r360.createRoot('Model', {}),
       location
@@ -22,12 +22,12 @@ function init(bundle, parent, options = {}) {
 
   // Render your app content to the default cylinder surface
   r360.renderToSurface(
-    r360.createRoot('React360', { /* initial props */ }),
+    r360.createRoot('Panel', { /* initial props */ }),
     r360.getDefaultSurface()
   );
 
   // Load the initial environment
-  r360.compositor.setBackground(r360.getAssetURL('360_world.jpg'));
+  r360.compositor.setBackground(r360.getAssetURL('autoshop_01.jpg'));
 }
 
 window.React360 = {init};

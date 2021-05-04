@@ -1,18 +1,31 @@
 import React from 'react';
 import {
     AppRegistry,
-    StyleSheet,
     View,
-    Cylinder,
-    Sphere
+    asset,
+    PointLight,
+    AmbientLight,
+    Box
 } from 'react-360';
+import Entity from 'Entity';
 
 export class Model extends React.Component {
     render() {
         return (
             <View>
-                <Cylinder radiusTop={.2} radiusBottom={.5} dimHeight={2} segments={9} style={{ color:'red',opacity:.3 , transform: [{translate: [.7, -5, 1]}]}}/>
-                <Cylinder radiusTop={.2} radiusBottom={.7} dimHeight={2} segments={6} style={{ color:'yellow',opacity:.3 , transform: [{translate: [.7, -5.5, 1]}]}}/>
+                <Entity source={{gltf2: asset('Koenigsegg.glb')}}
+                    style={
+                        {transform:[
+                            {scaleX: .2 },
+                            {scaleY: .2 },
+                            {scaleZ: .2 },
+                                {rotateY: 45}
+                        ]}
+                    }
+                />
+
+                <PointLight intensity={3}/>
+                <AmbientLight intensity={2}/>
             </View>
         );
     }
@@ -20,3 +33,21 @@ export class Model extends React.Component {
 }
 
 AppRegistry.registerComponent('Model', () => Model);
+{/*<Entity*/}
+{/*source={{*/}
+{/*    obj: asset('Car.obj'),*/}
+{/*    mtl: asset('Car.mtl')*/}
+{/*}}*/}
+{/*style={{transform:[*/}
+{/*        {scaleX: 2 },*/}
+{/*        { scaleY: 2 },*/}
+{/*        { scaleZ: 2 },*/}
+{/*    ]}}*/}
+{/*/>*/}
+// style={
+//     {transform:[
+//         {scaleX: 2 },
+//         { scaleY: 2 },
+//         { scaleZ: 2 },
+//     ]}
+// }
