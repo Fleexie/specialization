@@ -8,12 +8,17 @@ import {
     Box
 } from 'react-360';
 import Entity from 'Entity';
+import Panel from "./panel";
 
 export class Model extends React.Component {
+    state = {
+        activeCar: Panel.activeCar
+    }
+
     render() {
         return (
             <View>
-                <Entity source={{gltf2: asset('Koenigsegg.glb')}}
+                <Entity source={{gltf2: asset(`${this.state.activeCar}`)}}
                     style={
                         {transform:[
                             {scaleX: .2 },

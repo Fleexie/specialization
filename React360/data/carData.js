@@ -1,5 +1,5 @@
 export default car = {
-    car: [
+    cars: [
         {
             name: 'DodgeR1',
             modelUrl: 'Dodge-R1.glb',
