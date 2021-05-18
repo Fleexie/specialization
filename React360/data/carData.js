@@ -1,15 +1,14 @@
 export default car = {
-    cars: [
-        {
-            name: 'DodgeR1',
+    DodgeR1: {
+            carName: 'DodgeR1',
             modelUrl: 'Dodge-R1.glb',
-            image: 'dodgeR1.jpg'
+            image: 'dodgeR1.jpg',
+        cars: ['Koenigseggs', 'DodgeR1']
         },
-        {
-            name: 'Koenigeggs',
-            modelUrl: 'Koeningsegg.glb',
-            image: 'koenigseggAgera.jpg'
-        }
-    ]
-
+    Koenigseggs: {
+            carName: 'Koenigseggs',
+            modelUrl: 'Koenigsegg.glb',
+            image: 'koenigseggAgera.jpg',
+        cars: ['Koenigseggs', 'DodgeR1']
+        },
 }

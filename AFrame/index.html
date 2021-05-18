@@ -18,6 +18,9 @@
         <div class="slide">
             <label for="Size">Adjust model size</label>
             <input type="range" min=".1" value="1.5" max="2" step=".01" id="Size">
+
+            <label for="Rotate">Rotate model</label>
+            <input type="range" min="0" value="1" max="360" step="1" id="Rotate">
         </div>
     </a-gltf-model>
     <a-entity light="type: point; color: #fff; intensity: 3;" position="-1 2 -4"></a-entity>
@@ -37,7 +40,6 @@
             <span>Dodge R1</span>
         </button>
     </div>
-
 
 
 </a-scene>
@@ -73,9 +75,15 @@
 
     const slide = document.querySelector('#Size');
     slide.oninput = () => {
-        const value = slide.value;
-        model.setAttribute('scale', `${size * value} ${size * value} ${size * value}`);
+        const value = slide.value * size;
+
+        model.setAttribute('scale', `${value} ${value} ${value}`);
         console.log(slide.value)
+    }
+
+    const rotateSlide = document.querySelector('#Rotate');
+    rotateSlide.oninput = () => {
+        model.setAttribute('rotation', `0 ${rotateSlide.value} 0`)
     }
 </script>
 </body>

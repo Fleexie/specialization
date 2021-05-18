@@ -7,60 +7,72 @@ import {
     VrButton,
     VrAnimated,
     Image,
-    asset
+    asset,
+
 } from 'react-360';
-import carData from "../../data/carData";
+
+import car from "../../data/carData";
+import {connect, changeCar} from "../../store";
 
 export default class Panel extends React.Component {
-    state = {
-        activeCar: 'Car.gltf'
+
+    changeCarName(car){
+        changeCar(car)
     }
 
-    createCarButtons(cars){
+    createCarButtons(cars, carN){
         let buttons = [];
-        carData.cars.map(car => {
+
+        cars.map(car => {
+            console.log(car)
+            console.log(carN[car].carName)
             buttons.push(
-                <VrButton key={`${car.name}` + '-button'} style={styles.changeCarBtn}>
-                    <Image
-                        style={styles.changeCarImg}
-                        source={asset(`${car.image}`)}>
-                    </Image>
-                    <Text style={{backgroundColor: 'green'}}>{ car.name }</Text>
+                <VrButton key={carN[car] + '-button'} style={styles.changeCarBtn} id={carN[car].carName} onClick={() => this.changeCarName(car)}>
+                    <View pointerEvents={'none'}>
+                        <Image
+                            style={styles.changeCarImg}
+                            source={asset(carN[car].image)}>
+                        </Image>
+                        <Text style={{backgroundColor: 'rgba(88,203,84,0.2)'}}>{ carN[car].carName }</Text>
+                    </View>
                 </VrButton>
             )
         })
         return buttons;
     }
-    // onClick={() => this.clickHandler(car)}
 
     render() {
         return (
             <View style={styles.panels}>
-                <View style={styles.greetingBox}>
-                    { this.createCarButtons(carData.cars) }
-                    {/*<VrButton style={styles.changeCarBtn}>*/}
-                    {/*    <Image style={styles.changeCarImg}*/}
-                    {/*        source={asset('dodgeR1.jpg')}>*/}
-                    {/*    </Image>*/}
-                    {/*    <Text>Dodge R1</Text>*/}
-                    {/*</VrButton>*/}
-                </View>
+
+                { this.createCarButtons(car.DodgeR1.cars, car) }
+
             </View>
         );
     }
 };
 
+const ConnectedPanel = connect(Panel)
+
 const styles = StyleSheet.create({
     panels: {
         width: 800,
         height: 200,
-        backgroundColor: 'rgba(0,0,0,.3)'
+        backgroundColor: 'rgba(0,0,0,.1)',
+        flexDirection: 'row',
+        alignItems:'center',
+        justifyContent:'center',
+
     },
     changeCarBtn:{
+        width:200
+    },
+    changeCarBtnHowver:{
+        scale:1.5
     },
     changeCarImg:{
         width: 162,
         height: 70
     }
 })
-AppRegistry.registerComponent('Panel', () => Panel);
+AppRegistry.registerComponent('ConnectedPanel', () => ConnectedPanel);
