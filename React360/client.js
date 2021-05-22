@@ -2,7 +2,6 @@
 // If you want to modify your application's content, start in "index.js"
 
 import {ReactInstance, Location} from 'react-360-web';
-import {useState} from 'react'
 
 function init(bundle, parent, options = {}) {
   const r360 = new ReactInstance(bundle, parent, {
@@ -11,18 +10,14 @@ function init(bundle, parent, options = {}) {
     ...options,
   });
 
-  // const [carSelected, setCarSelected] = useState("Koenigsegg.glb")
-
-
-
+  // Render the model component
   const location = new Location([0, -2, -10]);
   r360.renderToLocation(
       r360.createRoot('ConnectedModels', {}),
       location
   );
 
-
-  // Render your app content to the default cylinder surface
+  // Render the panel for buttons
   r360.renderToSurface(
     r360.createRoot('ConnectedPanel', {}),
     r360.getDefaultSurface()

@@ -6,6 +6,7 @@
 
 body{
     background-color: #5a5a5a;
+    font-family: sans-serif;
 }
 .buttons{
     position: absolute;
@@ -52,11 +53,39 @@ body{
 
 .slide{
     width: 50%;
-    height: 50px;
+    min-height: 50px;
+    padding: .5rem 0;
     background: rgba(0,0,0,0.5);
     position: absolute;
     z-index: 12000;
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
+    display: grid;
+    grid-template-areas: 'sizeL rotateL' 'sizeI rotateI';
+}
+
+.slide input{
+    width: 80%;
+    margin: auto;
+}
+.slide label{
+    margin: auto;
+    font-size: 1.4rem;
+    color: aqua;
+    font-weight: bold;
+}
+
+/* Grid namings */
+.slide label:nth-of-type(1){
+    grid-area: sizeL;
+}
+.slide label:nth-of-type(2){
+    grid-area: rotateL;
+}
+.slide input:nth-of-type(1){
+    grid-area: sizeI;
+}
+.slide input:nth-of-type(2){
+    grid-area: rotateI;
 }

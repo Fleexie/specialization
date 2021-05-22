@@ -27,13 +27,17 @@ export default class Panel extends React.Component {
             console.log(car)
             console.log(carN[car].carName)
             buttons.push(
-                <VrButton key={carN[car] + '-button'} style={styles.changeCarBtn} id={carN[car].carName} onClick={() => this.changeCarName(car)}>
+                <VrButton key={carN[car].carName + '-button'}
+                          style={styles.changeCarBtn}
+                          id={carN[car].carName}
+                          onClick={() => this.changeCarName(car)}
+                >
                     <View pointerEvents={'none'}>
                         <Image
                             style={styles.changeCarImg}
                             source={asset(carN[car].image)}>
                         </Image>
-                        <Text style={{backgroundColor: 'rgba(88,203,84,0.2)'}}>{ carN[car].carName }</Text>
+                        <Text style={{backgroundColor: 'rgba(88,203,84,0.4)', textAlign: 'center'}}>{ carN[car].carName }</Text>
                     </View>
                 </VrButton>
             )
@@ -58,17 +62,18 @@ const styles = StyleSheet.create({
     panels: {
         width: 800,
         height: 200,
-        backgroundColor: 'rgba(0,0,0,.1)',
+        backgroundColor: 'rgba(0,0,0,.01)',
         flexDirection: 'row',
         alignItems:'center',
         justifyContent:'center',
 
     },
     changeCarBtn:{
-        width:200
-    },
-    changeCarBtnHowver:{
-        scale:1.5
+        width:200,
+        margin: '5px',
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'row',
     },
     changeCarImg:{
         width: 162,

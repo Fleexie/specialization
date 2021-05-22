@@ -5,10 +5,8 @@ import {
     asset,
     PointLight,
     AmbientLight,
-    Animated
 } from 'react-360';
 import Entity from 'Entity';
-import Panel from "./panel";
 import {connect} from "../../store";
 
 export class Model extends React.Component {
@@ -17,10 +15,9 @@ constructor(props) {
     this.state = {
         rotation: 1,
         rotate: 1,
+        modelScale: .2
     }
-
 }
-
     componentDidMount() {
         this.rotation = setInterval(() =>{
             if (this.state.rotate === 360){
@@ -28,9 +25,16 @@ constructor(props) {
             }
             this.setState({rotate: this.state.rotate + 1})
         }, 30)
-    }
-    componentWillReceiveProps() {
 
+    }
+
+    componentDidUpdate() {
+        if (this.props.name === "DodgeR1" && this.state.modelScale !== .33){
+            this.setState({modelScale: .33})
+        }
+        else if(this.props.name === "Koenigseggs" && this.state.modelScale !== .2) {
+            this.setState({modelScale: .2})
+        }else {return}
     }
 
     render() {
@@ -39,45 +43,34 @@ constructor(props) {
                 <Entity source={{gltf2: asset(this.props.model)}}
                     style={
                         {transform:[
-                            {scaleX: .2 },
-                            {scaleY: .2 },
-                            {scaleZ: .2 },
+                            {scaleX: this.state.modelScale },
+                            {scaleY: this.state.modelScale },
+                            {scaleZ: this.state.modelScale },
                                 {rotateY: this.state.rotate}
                         ]}
                     }
                 />
-                <PointLight intensity={3} style={{transform:[
+                <PointLight intensity={4} style={{transform:[
                         {translateX: 1},
                         {translateY: 1},
                         {translateZ: 1}
                     ]}}/>
-                <PointLight intensity={2}/>
-                <PointLight intensity={1}/>
-                <AmbientLight intensity={2}/>
+                <PointLight intensity={3} style={{transform:[
+                        {translateX: -1},
+                        {translateY: 1},
+                        {translateZ: -1}
+                    ]}}/>
+                <PointLight intensity={2} style={{transform:[
+                        {translateX: 0},
+                        {translateY: 1},
+                        {translateZ: 0}
+                    ]}}/>
+                <AmbientLight intensity={5}/>
             </View>
         );
     }
-
 }
 
 const ConnectedModels = connect(Model)
 
 AppRegistry.registerComponent('ConnectedModels', () => ConnectedModels);
-{/*<Entity*/}
-{/*source={{*/}
-{/*    obj: asset('Car.obj'),*/}
-{/*    mtl: asset('Car.mtl')*/}
-{/*}}*/}
-{/*style={{transform:[*/}
-{/*        {scaleX: 2 },*/}
-{/*        { scaleY: 2 },*/}
-{/*        { scaleZ: 2 },*/}
-{/*    ]}}*/}
-{/*/>*/}
-// style={
-//     {transform:[
-//         {scaleX: 2 },
-//         { scaleY: 2 },
-//         { scaleZ: 2 },
-//     ]}
-// }
